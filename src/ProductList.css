@@ -158,8 +158,14 @@ body {
     align-items: center;
     justify-content: center;
     width: 650px;
+    gap: 20px;
     font-size: 19px;
 }
+
+.navBarHeading {
+    margin-left: 15%;
+}
+
 .cart{
     color: white;
     display: flex;
