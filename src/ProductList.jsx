@@ -236,7 +236,7 @@ function ProductList() {
    }
    
    const cart = useSelector((state) => state.cart.items);
-   const total_cart_items =  cart.length;
+   const total_cart_items =  cart.reduce((total, cartItem) => total+cartItem.quantity, 0);
 
    const dispatch = useDispatch();
    const handleAddToCart = (product) => {
@@ -282,7 +282,7 @@ function ProductList() {
             </div>
             </div>
 
-            {showCart? <CartItem onContinueShopping={setShowCart} /> : <div className="product-grid">
+            {showCart? <CartItem onContinueShopping={setShowCart} handleRemoveFromCart={setAddedToCart}/> : <div className="product-grid">
                 {plantsArray.map((category, index) => (
                     <div key={index}>
                         <h1 className='plant_heading'><div className='plantname_heading'>{category.category}</div></h1>
@@ -293,7 +293,11 @@ function ProductList() {
                                     <img className="product-image" src={plant.image} alt={plant.name} />
                                     <div className="product-price">{plant.cost}</div>
                                     <div className="product-description">{plant.description}</div>
-                                    <button className={`product-button ${addedToCart[plant.name]? `added-to-cart` : ``} `} onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                    <button 
+                                        className={`product-button ${addedToCart[plant.name]? `added-to-cart` : ``} `} 
+                                        onClick={() => handleAddToCart(plant)}
+                                        disabled={addedToCart[plant.name]}
+                                    >Add to Cart</button>
                                 </div>
                             ))}
                         </div>
